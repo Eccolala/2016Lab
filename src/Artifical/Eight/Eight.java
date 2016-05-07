@@ -133,8 +133,8 @@ public class Eight {
         if (row + 1 < 3) {
             //这里的问题是 newState 是oldState 的一个引用所以 newState 一变 oldState 也会跟着变
             State newState = new State();
-            for (int i = 0;i < 3;i++)
-                for (int j = 0;j < 3;j++)
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
                     newState.arrState[i][j] = oldState.arrState[i][j];
 //            State newState = oldState;
             newState.depth = oldState.depth + 1;
@@ -153,10 +153,10 @@ public class Eight {
         }
         if (row - 1 > -1)//0向上移动
         {
-           // State newState = oldState;
+            // State newState = oldState;
             State newState = new State();
-            for (int i = 0;i < 3;i++)
-                for (int j = 0;j < 3;j++)
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
                     newState.arrState[i][j] = oldState.arrState[i][j];
             newState.depth = oldState.depth + 1;
             newState.parent = oldState.nID;
@@ -178,8 +178,8 @@ public class Eight {
         {
             //State newState = oldState;
             State newState = new State();
-            for (int i = 0;i < 3;i++)
-                for (int j = 0;j < 3;j++)
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
                     newState.arrState[i][j] = oldState.arrState[i][j];
             newState.depth = oldState.depth + 1;
             newState.parent = oldState.nID;
@@ -201,8 +201,8 @@ public class Eight {
         {
 //            State newState = oldState;
             State newState = new State();
-            for (int i = 0;i < 3;i++)
-                for (int j = 0;j < 3;j++)
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
                     newState.arrState[i][j] = oldState.arrState[i][j];
             newState.depth = oldState.depth + 1;
             newState.parent = oldState.nID;
@@ -225,6 +225,7 @@ public class Eight {
 
     /**
      * remove 可能会有问题，还没测试
+     *
      * @param s
      */
     //把open表中已访问的state放到closed表中
@@ -336,24 +337,44 @@ public class Eight {
             int b = o2.value;
             return a > b ? 1 : -1;
         });
-        showMatrix(open.get(0).arrState);
-        System.out.println();
-        int currentID = open.get(0).parent;
+//        showMatrix(open.get(0).arrState);
+//        System.out.println();
 
+            moveToClosed(open.get(0));
 
 //        for (int i = closedIndex; i > -1; i--) {
-//            if (nID == closed.get(i).nID) {
+//            if (closed.get(i).nID == currentID) {
 //                showMatrix(closed.get(i).arrState);    //输出
-//                nID = closed.get(i).parent;
+//                currentID = closed.get(i).parent;
 //            }
 //        }
 
-        for (int i = 0;i < closedIndex;i++){
+//        for (int i = 0; i < closedIndex; i++) {
+//            if (closed.get(i).nID == currentID) {
+//                showMatrix(closed.get(i).arrState);
+//                currentID = closed.get(i).parent;
+//            }
+//        }
+        int currentID = closed.get(closedIndex - 1).parent;
+        showMatrix(closed.get(closedIndex - 1).arrState);
+        System.out.println();
+        for (int i = closedIndex - 1;i > -1;i--){
             if (closed.get(i).nID == currentID){
                 showMatrix(closed.get(i).arrState);
+                System.out.println();
                 currentID = closed.get(i).parent;
             }
         }
+// while (closedIndex > 0) {
+//
+//            int key = closedIndex - 1;
+//            if (closed.get(key).nID == currentID) {
+//                showMatrix(closed.get(closedIndex).arrState);
+//                System.out.println();
+//                currentID = closed.get(closedIndex).parent;
+//            }
+//            closedIndex--;
+//        }
 
 //        for (State s : closed){
 //            showMatrix(s.arrState);
