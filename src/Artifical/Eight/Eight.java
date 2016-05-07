@@ -332,11 +332,13 @@ public class Eight {
     }
 
     public void findPath() {
-        Collections.sort(open, (o1, o2) -> {
-            int a = o1.value;
-            int b = o2.value;
-            return a > b ? 1 : -1;
-        });
+
+        List<State> showList = new ArrayList<>();
+//        Collections.sort(open, (o1, o2) -> {
+//            int a = o1.value;
+//            int b = o2.value;
+//            return a > b ? 1 : -1;
+//        });
 //        showMatrix(open.get(0).arrState);
 //        System.out.println();
 
@@ -356,14 +358,26 @@ public class Eight {
 //            }
 //        }
         int currentID = closed.get(closedIndex - 1).parent;
-        showMatrix(closed.get(closedIndex - 1).arrState);
+//        showMatrix(closed.get(closedIndex - 1).arrState);
+        showList.add(closed.get(closedIndex - 1));
         System.out.println();
         for (int i = closedIndex - 1;i > -1;i--){
             if (closed.get(i).nID == currentID){
-                showMatrix(closed.get(i).arrState);
-                System.out.println();
+                showList.add(closed.get(i));
+//                showMatrix(closed.get(i).arrState);
+//                System.out.println();
                 currentID = closed.get(i).parent;
             }
+        }
+
+//        for (State s : showList){
+//            showMatrix(s.arrState);
+//            System.out.println();
+//        }
+
+        for (int i = showList.size() -1 ;i > -1;i--){
+            showMatrix(showList.get(i).arrState);
+            System.out.println();
         }
 // while (closedIndex > 0) {
 //
